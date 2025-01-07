@@ -10,6 +10,12 @@ Run the following command:
 npx create-turbo@latest -e with-vite
 ```
 
+## TODO
+
+1. 共享 eslint
+2. 共享tailwind
+3. 共享构建工具 and react
+
 ## What's inside?
 
 This Turborepo includes the following packages and apps:
