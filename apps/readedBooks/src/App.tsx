@@ -4,7 +4,7 @@ import { getBooks, saveToIndexDB } from "./utils/indexdb";
 import { processIBooksData } from "./utils/parseData";
 import type { Annotation, Book } from "./utils/parseData";
 
-type BookIndexDb = Book & {annotations: Annotation[]}
+type BookIndexDb = Book & { annotations: Annotation[] }
 
 function App() {
   const [selectedBook, setSelectedBook] = useState<string | null>(null);
@@ -111,7 +111,7 @@ function App() {
           // 书籍列表视图
           <div>
             <h1 className="text-3xl font-bold mb-8">已读书籍</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
               {books.map((book) => (
                 <div
                   key={book.id}
@@ -129,7 +129,12 @@ function App() {
                     />
                   </figure>
                   <div className="card-body">
-                    <h2 className="card-title">{book.title}</h2>
+                    <h2
+                      className="card-title line-clamp-2"
+                      title={book.title}
+                    >
+                      {book.title}
+                    </h2>
                   </div>
                 </div>
               ))}
@@ -146,25 +151,22 @@ function App() {
             </button>
 
             {currentBook && (
-              <div className="flex flex-col md:flex-row gap-8">
+              <div className="flex flex-col md:flex-row gap-8 h-[calc(100vh-100px)]">
                 <div className="w-full md:w-1/3">
                   <img
                     src="https://placehold.co/200x300"
                     alt={currentBook.title}
                     className="w-full rounded-lg shadow-lg"
                   />
-                </div>
-                <div className="w-full md:w-2/3">
-                  <h1 className="text-3xl font-bold mb-4">
+                  <h1 className="text-3xl font-bold mt-4 text-center">
                     {currentBook.title}
                   </h1>
+                </div>
+                <div className="w-full md:w-2/3 overflow-y-auto">
                   <div className="space-y-4">
                     {currentBook.annotations.map((annotation, index) => (
                       <div key={index} className="card bg-base-200 p-4">
-                        {/* <div className="text-sm text-gray-500 mb-2">
-                          第 {highlight.page} 页
-                        </div> */}
-                        <p>🔖 {index+1}. {annotation.text}</p>
+                        <p>🔖 {index + 1}. {annotation.text}</p>
                         {annotation.note ? <p>✍️ {annotation.note}</p> : null}
                       </div>
                     ))}

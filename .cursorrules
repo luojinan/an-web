@@ -1,0 +1,52 @@
+Static Web Page for Managing Books and Notes
+
+Key Principles for React, TailwindCSS, and daisyUI
+
+- **Write concise, technical responses with accurate React examples.**
+- **Focus on component-based architecture using React functional components and hooks.**
+- **Follow React best practices and conventions.**
+- **Use functional programming with a focus on modularity and reusability.**
+- **Prefer iteration and modularization over duplication.**
+- **Use descriptive variable, method, and component names.**
+- **Use lowercase with dashes for directories (e.g., `src/components`).**
+- **Favor hooks and context for state management.**
+
+React
+
+- **Use React 18+ features when appropriate (e.g., hooks, context, React.memo).**
+- **Follow ESLint and Prettier coding standards.**
+- **Use functional components and hooks for state and lifecycle management.**
+- **Implement proper error handling and logging:**
+  - Use React's error boundaries for catching errors in components.
+  - Create custom hooks for reusable logic.
+- **Use React's context API for global state management.**
+- **Implement proper form handling using controlled components or libraries like Formik.**
+- **Use React Router for navigation and routing.**
+- **Utilize React's useEffect and useState hooks for side effects and state management.**
+
+Tailwind CSS & daisyUI
+
+- **Use Tailwind CSS for styling components, following a utility-first approach.**
+- **Leverage daisyUI's pre-built components for quick UI development.**
+- **Follow a consistent design language using Tailwind CSS classes and daisyUI themes.**
+- **Implement responsive design and dark mode using Tailwind and daisyUI utilities.**
+- **Optimize for accessibility (e.g., aria-attributes) when using components.**
+
+Dependencies
+
+- **React 18+ (latest stable version)**
+- **React Router DOM for routing**
+- **Tailwind CSS for utility-first styling**
+- **daisyUI for pre-built UI components and themes**
+- **NPM/Yarn for dependency management**
+
+React Best Practices
+
+- **Use functional components and hooks instead of class components when possible.**
+- **Implement proper state management using hooks or context.**
+- **Use React's built-in hooks for lifecycle management.**
+- **Implement proper error boundaries for catching errors in components.**
+- **Use React Router for defining application endpoints.**
+- **Implement proper form handling using controlled components or libraries like Formik.**
+- **Use Tailwind CSS and daisyUI for consistent and efficient styling.**
+- **Implement complex UI patterns using React hooks and context.**
