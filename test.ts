@@ -29,7 +29,7 @@
  * 
  */
 
-import { writeFileSync, readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 
 type Item = {
   "序号": number,
@@ -43,7 +43,7 @@ type NewItem = {
   index: number,
   count: number,
   word: string,
-  chiness: string,
+  chinese: string,
   note: any
 }
 
@@ -60,7 +60,7 @@ function transformWordData(items: Item[]): NewItem[] {
     index: item.序号,
     count: item.词频,
     word: item.单词,
-    chiness: item.释义,
+    chinese: item.释义,
     note: item.其他拼写
   }));
 }
@@ -92,18 +92,18 @@ async function main() {
   try {
     const originData = await getOriginWordData('https://raw.gitmirror.com/exam-data/NETEMVocabulary/master/netem_full_list.json');
     const transformedData = transformWordData(originData);
-    
+
     // 生成纯单词列表
     const onlyWords = getOnlyWords(transformedData);
     genMyWords('onlyword.json', onlyWords);
     console.log('单词提取完成，已保存到onlyword.json');
-    
+
     // 过滤不需要的单词
     const noNeedWords = getNoNeedWords('./noneed.json');
     const filteredData = filterNoNeed(transformedData, noNeedWords);
     genMyWords('myWords.json', filteredData);
     console.log('单词过滤完成，已保存到myWords.json');
-    
+
   } catch (error) {
     console.error('处理过程中发生错误:', error);
   }
