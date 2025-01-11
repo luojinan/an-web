@@ -14,20 +14,30 @@ export const saveWordsToIndexedDB = async (words: Word[]) => {
 };
 
 export const getLastFetchedTime = async () => {
-	const meta = await db.table('meta').get('lastFetched');
-	return meta ? meta.value : null;
+  const meta = await db.table('meta').get('lastFetched');
+  return meta ? meta.value : null;
 };
 
 export const getWordsFromIndexedDB = async () => {
-	return await db.table('words').toArray();
+  return await db.table('words').toArray();
 };
 
 const CURRENT_INDEX_KEY = 'words-card-current-index';
 
 export const saveCurrentIndex = (index: number) => {
-	localStorage.setItem(CURRENT_INDEX_KEY, index.toString());
+  localStorage.setItem(CURRENT_INDEX_KEY, index.toString());
 };
 
 export const getCurrentIndex = (): number => {
-	return parseInt(localStorage.getItem(CURRENT_INDEX_KEY) || '0');
+  return parseInt(localStorage.getItem(CURRENT_INDEX_KEY) || '0');
+};
+
+const THEME_KEY = 'words-card-theme';
+
+export const saveTheme = (theme: 'light' | 'black') => {
+  localStorage.setItem(THEME_KEY, theme);
+};
+
+export const getTheme = (): 'light' | 'black' => {
+  return (localStorage.getItem(THEME_KEY) as 'light' | 'black') || 'light';
 };

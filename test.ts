@@ -9,6 +9,7 @@
  * ✨ 因此 noneed.json 不可删除，而 onlyword 和 myWords 都可以删除，运行脚本就会重新生成出来
  * 
  * 临时：waitToRead 是 onlyword 减去 noneed 的未标记的单词，在读完并标记是否noneed后不再需要，当前不可删除
+ * 把 waitToRead 中的不认识的单词删除，剩下认识的单词剪贴到noneed中
  * 
  * 文件关系图：
  * [远程JSON] (https://raw.gitmirror.com/exam-data/NETEMVocabulary/master/netem_full_list.json)

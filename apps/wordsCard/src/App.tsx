@@ -5,8 +5,10 @@ import WordCard from "./components/WordCard";
 import {
 	getCurrentIndex,
 	getLastFetchedTime,
+	getTheme,
 	getWordsFromIndexedDB,
 	saveCurrentIndex,
+	saveTheme,
 	saveWordsToIndexedDB,
 } from "./utils/index";
 import myWords from "./utils/myWords.json";
@@ -17,7 +19,6 @@ const App: React.FC = () => {
 	const [currentIndex, setCurrentIndex] = useState(getCurrentIndex());
 	const [lastFetched, setLastFetched] = useState<string | null>(null);
 	const [words, setWords] = useState(myWords);
-	const [theme, setTheme] = useState<"light" | "black">("light");
 
 	const handleNext = () => {
 		if (currentIndex < words.length - wordsPerPage) {
@@ -33,6 +34,12 @@ const App: React.FC = () => {
 			setCurrentIndex(newIndex);
 			saveCurrentIndex(newIndex);
 		}
+	};
+
+	const handleJump = (group: number) => {
+		const newIndex = (group - 1) * wordsPerPage;
+		setCurrentIndex(newIndex);
+		saveCurrentIndex(newIndex);
 	};
 
 	const initData = async () => {
@@ -55,8 +62,18 @@ const App: React.FC = () => {
 	};
 
 	const toggleTheme = () => {
-		setTheme((prev) => (prev === "light" ? "black" : "light"));
+		const currentTheme = document.documentElement.getAttribute("data-theme") as
+			| "light"
+			| "black";
+		const newTheme = currentTheme === "light" ? "black" : "light";
+		document.documentElement.setAttribute("data-theme", newTheme);
+		saveTheme(newTheme);
 	};
+
+	useEffect(() => {
+		// 初始化时设置主题
+		document.documentElement.setAttribute("data-theme", getTheme());
+	}, []);
 
 	useEffect(() => {
 		// 💩 React StrictMode https://devv.ai/search?threadId=e9l570gexwcg
@@ -67,7 +84,7 @@ const App: React.FC = () => {
 	}, []);
 
 	return (
-		<div data-theme={theme} className="container min-h-screen mx-auto p-4">
+		<div className="container min-h-screen mx-auto p-4">
 			<div className="flex justify-between items-center mb-4">
 				<span>
 					数据来源时间:{" "}
@@ -91,8 +108,9 @@ const App: React.FC = () => {
 					<input
 						type="checkbox"
 						className="theme-controller"
-						// value="synthwave"
-						checked={theme === "black"}
+						checked={
+							document.documentElement.getAttribute("data-theme") === "black"
+						}
 						onChange={toggleTheme}
 					/>
 
@@ -121,7 +139,11 @@ const App: React.FC = () => {
 				handleNext={handleNext}
 				handlePrev={handlePrev}
 			/>
-			<CardProgress currentIndex={currentIndex} total={words.length} />
+			<CardProgress
+				currentIndex={currentIndex}
+				total={words.length}
+				onJump={handleJump}
+			/>
 		</div>
 	);
 };
