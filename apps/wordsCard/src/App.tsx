@@ -17,7 +17,7 @@ const App: React.FC = () => {
 	const [currentIndex, setCurrentIndex] = useState(getCurrentIndex());
 	const [lastFetched, setLastFetched] = useState<string | null>(null);
 	const [words, setWords] = useState(myWords);
-	const [theme, setTheme] = useState<"light" | "dark">("light");
+	const [theme, setTheme] = useState<"light" | "black">("light");
 
 	const handleNext = () => {
 		if (currentIndex < words.length - wordsPerPage) {
@@ -55,7 +55,7 @@ const App: React.FC = () => {
 	};
 
 	const toggleTheme = () => {
-		setTheme((prev) => (prev === "light" ? "dark" : "light"));
+		setTheme((prev) => (prev === "light" ? "black" : "light"));
 	};
 
 	useEffect(() => {
@@ -92,7 +92,7 @@ const App: React.FC = () => {
 						type="checkbox"
 						className="theme-controller"
 						// value="synthwave"
-						checked={theme === "dark"}
+						checked={theme === "black"}
 						onChange={toggleTheme}
 					/>
 
