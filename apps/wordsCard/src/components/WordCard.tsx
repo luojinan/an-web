@@ -53,11 +53,13 @@ const WordCard: React.FC<Props> = ({
 							<div className="space-y-1">
 								{/* 单词和词频 */}
 								<div className="flex items-baseline gap-2">
-									<span className="text-2xl font-bold">{word.word}</span>
+									<span className="text-2xl font-bold">
+										{word.word || word.name}
+									</span>
 									<button
 										onClick={() => {
 											const audio = new Audio(
-												`https://dict.youdao.com/dictvoice?audio=${word.word}&type=2`,
+												`https://dict.youdao.com/dictvoice?audio=${word.word || word.name}&type=2`,
 											);
 											audio.play();
 										}}
@@ -77,7 +79,11 @@ const WordCard: React.FC<Props> = ({
 											/>
 										</svg>
 									</button>
-									<sup className="text-sm text-gray-500">({word.count}次)</sup>
+									{word.count ? (
+										<sup className="text-sm text-gray-500">
+											({word.count || "-"}次)
+										</sup>
+									) : null}
 								</div>
 
 								{/* 其他拼写 */}
@@ -87,7 +93,9 @@ const WordCard: React.FC<Props> = ({
 									</div>
 								)}
 								{/* 释义 */}
-								<div className="text-lg font-medium">{word.chinese}</div>
+								<div className="text-lg font-medium">
+									{word.chinese || word?.trans?.join?.()}
+								</div>
 							</div>
 						</div>
 					))}
