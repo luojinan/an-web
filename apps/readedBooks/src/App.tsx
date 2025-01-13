@@ -177,7 +177,7 @@ function BookDetail({ books }) {
 			<button onClick={() => navigate(-1)} className="btn btn-ghost mb-4">
 				&larr; 返回书单
 			</button>
-			<div className="flex flex-col md:flex-row gap-8 h-[calc(100vh-100px)]">
+			<div className="flex flex-col md:flex-row gap-8 md:h-[calc(100vh-100px)] overflow-y-auto md:overflow-y-hidden">
 				<div className="w-full md:w-1/3">
 					<img
 						src="https://placehold.co/200x300"
@@ -188,14 +188,14 @@ function BookDetail({ books }) {
 						{currentBook.title}
 					</h1>
 				</div>
-				<div className="w-full md:w-2/3 overflow-y-auto">
+				<div className="w-full md:w-2/3 md:overflow-y-auto">
 					<div className="space-y-4">
 						{currentBook.annotations.map((annotation, index) => (
 							<div key={index} className="card bg-base-200 p-4">
 								<p>
-									🔖 {index + 1}. {annotation.text}
+									{index+1}. 🔖 <span className="bg-yellow-100 text-black px-1 py-0.5 rounded">{annotation.text}</span>
 								</p>
-								{annotation.note ? <p>✍️ {annotation.note}</p> : null}
+								{annotation.note ? <p className="mt-3">✍️ {annotation.note}</p> : null}
 							</div>
 						))}
 					</div>
@@ -206,12 +206,12 @@ function BookDetail({ books }) {
 }
 
 function MainApp() {
-	const [theme, setTheme] = useState<"light" | "dark">("light");
+	const [theme, setTheme] = useState<"light" | "black">("light");
 	const [dataUrl, setDataUrl] = useState(getFromLocalStorage("dataUrl") || "");
 	const [books, setBooks] = useState<BookIndexDb[]>([]);
 
 	const toggleTheme = () => {
-		setTheme((prev) => (prev === "light" ? "dark" : "light"));
+		setTheme((prev) => (prev === "light" ? "black" : "light"));
 	};
 
 	const handleImportData = async () => {

@@ -1,43 +1,159 @@
-# 阅读过的书
+## 书籍阅读管理系统
 
-## Expanding the ESLint configuration
+书籍阅读管理系统，一个现代化且优雅的前端响应式Web应用，旨在帮助用户高效管理和回顾已阅读的书籍内容。该项目采用最前沿的技术栈，确保在PC和移动端设备上均能提供流畅且美观的用户体验。
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```yaml
+project: 书籍阅读管理系统
+technologies:
+  - Pnpm
+  - React
+  - TypeScript
+  - Tailwindcss
+  - daisyui
+  - Vite
+description: 一个现代化且优雅的前端响应式Web应用，用于管理和回顾已阅读的书籍内容。
+contributors:
+  - yourusername
+license: MIT
+repository: https://github.com/yourusername/book-reading-management
+issues: https://github.com/yourusername/book-reading-management/issues
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 简介
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+书籍阅读管理系统旨在为书籍爱好者提供一个集中管理阅读记录的平台。用户可以在首页以宫格样式查看已阅读的书籍清单，点击书籍可进入详情页面，查看高亮的文字内容及对应的笔记。这一系统不仅帮助用户回顾重要的阅读内容，还能激发更深层次的思考与理解。
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+## 功能特性
+
+响应式设计：无论是在PC还是移动设备上，均能提供最佳的浏览体验。
+现代且优雅的界面：采用Tailwind CSS与daisyUI，确保界面简洁美观，用户操作直观便捷。
+书籍清单展示：首页以宫格样式展示已阅读的书籍，支持快速浏览和筛选。
+详细内容展示：点击书籍后，展示高亮的文字内容及对应的笔记，帮助用户回顾与整理阅读成果。
+高效数据处理：从macOS的iBooks导出高亮数据，经过处理后无缝集成到系统中。
+
+TODO:
+
+- [] 图书数据：按阅读时间排序
+- [] 图书数据：作者、封面数据来源
+
+## 技术栈
+
+本项目采用以下先进技术构建，确保性能与可维护性：
+
+Pnpm：高效的包管理工具，提升依赖安装速度与一致性。
+React：构建用户界面的JavaScript库，提供组件化开发模式。
+TypeScript：为JavaScript提供静态类型，提升代码的可读性与可靠性。
+Tailwind CSS：实用优先的CSS框架，快速构建响应式设计。
+daisyUI：基于Tailwind CSS的组件库，提供预设的UI组件，简化设计流程。
+Vite：极速的前端构建工具，提升开发体验与构建效率。
+
+## 项目架构
+
+项目采用模块化设计，确保代码的可维护性与扩展性。主要目录结构如下：
+
 ```
+├── public
+│   └── assets
+├── src
+│   ├── components
+│   ├── pages
+│   ├── services
+│   ├── styles
+│   ├── types
+│   ├── utils
+│   └── App.tsx
+├── tailwind.config.js
+├── vite.config.ts
+├── tsconfig.json
+├── package.json
+└── README.md
+```
+
+## 主要模块
+
+components：存放可复用的UI组件，如导航栏、书籍卡片等。
+pages：各个页面的组件，包括首页和书籍详情页。
+services：与数据交互相关的逻辑，如数据导入与解析。
+styles：全局样式与主题配置。
+types：TypeScript类型定义，确保数据结构的一致性。
+utils：工具函数，辅助实现各种功能。
+
+## 安装与配置
+
+前提条件
+Node.js：建议使用最新的长期支持（LTS）版本。
+Pnpm：包管理工具，请参考Pnpm官网进行安装。
+
+## 使用指南
+
+首页 - 书籍清单
+展示方式：采用宫格样式，展示已阅读的书籍封面与基本信息。
+交互操作：
+点击书籍：进入书籍详情页。
+筛选与搜索：支持按照书名、作者等信息进行筛选与搜索。
+书籍详情页
+高亮内容展示：以列表或卡片形式展示从iBooks导出的高亮文字。
+笔记关联：每段高亮文字对应的笔记内容，帮助用户回顾与理解。
+编辑与管理：支持用户添加、编辑或删除笔记（根据项目需求，可能需要后端支持）。
+数据来源与处理
+数据来源
+数据来源于macOS系统中iBooks导出的高亮数据。具体导出步骤如下：
+
+打开iBooks，选择需要导出的书籍。
+导出高亮数据：通常可以通过iBooks的“导出”功能，将高亮内容导出为文本或JSON格式。
+
+## 数据处理
+
+为了将导出的高亮数据整合到本项目中，需进行以下处理：
+
+数据解析：编写脚本解析iBooks导出的数据格式，提取高亮文字与对应的笔记。
+数据格式化：将解析后的数据转换为前端可直接使用的JSON格式。
+数据导入：将格式化后的数据导入到项目的 src/data 目录，或通过API接口动态加载（根据项目需求）。
+示例数据结构
+
+```json
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "书名",
+      "author": "作者",
+      "coverImage": "path/to/image.jpg",
+      "highlights": [
+        {
+          "id": "h1",
+          "text": "高亮的文字内容",
+          "note": "对应的笔记内容"
+        },
+        {
+          "id": "h2",
+          "text": "另一段高亮文字",
+          "note": "相应的笔记"
+        }
+      ]
+    }
+    // 更多书籍
+  ]
+}
+```
+
+## 样式与设计
+
+### 响应式设计
+
+采用Tailwind CSS的响应式工具类，实现不同设备下的最佳布局：
+
+移动端：单列布局，优化触控操作。
+平板与桌面端：多列宫格布局，充分利用屏幕空间。
+主题与美学
+结合daisyUI提供的组件库，定制符合现代审美的主题：
+
+配色方案：选用柔和且对比鲜明的配色，确保良好的可读性与视觉吸引力。
+排版：合理运用字体大小与行高，提升阅读体验。
+动画效果：适度添加过渡与悬停效果，增强交互性。
+可访问性
+确保应用符合基本的可访问性标准：
+
+语义化HTML：使用正确的HTML标签，提升可访问性。
+键盘导航：支持键盘操作，方便不同需求的用户使用。
+对比度优化：确保文字与背景的对比度符合可读性要求。
