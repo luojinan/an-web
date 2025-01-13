@@ -54,6 +54,29 @@ const WordCard: React.FC<Props> = ({
 								{/* 单词和词频 */}
 								<div className="flex items-baseline gap-2">
 									<span className="text-2xl font-bold">{word.word}</span>
+									<button
+										onClick={() => {
+											const audio = new Audio(
+												`https://dict.youdao.com/dictvoice?audio=${word.word}&type=2`,
+											);
+											audio.play();
+										}}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											className="h-6 w-6 text-gray-600"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M11 5l-7 7m0 0l7 7m-7-7h18"
+											/>
+										</svg>
+									</button>
 									<sup className="text-sm text-gray-500">({word.count}次)</sup>
 								</div>
 
