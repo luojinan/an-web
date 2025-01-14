@@ -1,3 +1,7 @@
+数据来源
+
+1. [qwerty-learner github](https://github.com/RealKai42/qwerty-learner/blob/master/public/dicts/CET4_T.json)
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
