@@ -46,12 +46,24 @@ export const importWordsFromUrl = async (url: string) => {
     const response = await fetch(url);
     const words = await response.json();
 
+    // Get learned words
+    const learnedWords = await db.table('learnedWords').toArray();
+    const learnedWordSet = new Set(learnedWords.map(w => w.word));
+
+    // Filter out learned words
+    const newWords = words.filter((word: Word) => !learnedWordSet.has(word.word));
+
     const dictionaryId = await createDictionary(url.split('/').pop() || 'New Dictionary', url);
 
     await db.table('words').where('dictionaryId').equals(dictionaryId).delete();
-    await db.table('words').bulkAdd(words.map((word: Word) => ({ ...word, dictionaryId })));
+    await db.table('words').bulkAdd(newWords.map((word: Word) => ({ ...word, dictionaryId })));
 
-    return { words, dictionaryId };
+    return {
+      words: newWords,
+      dictionaryId,
+      totalWords: words.length,
+      filteredWords: words.length - newWords.length
+    };
   } catch (error) {
     console.error('导入数据失败:', error);
     throw error;

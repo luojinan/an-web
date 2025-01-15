@@ -22,7 +22,6 @@ const gitHost =
 
 export default function DictionaryConfig(): JSX.Element {
 	const navigate = useNavigate();
-	const [dataUrl, setDataUrl] = useState("");
 	const [dataSources, setDataSources] = useState<DataSource[]>([]);
 	const [selectedDict, setSelectedDict] = useState<DictionaryResource | null>(
 		null,
@@ -80,7 +79,7 @@ export default function DictionaryConfig(): JSX.Element {
 		return storedDict;
 	};
 
-	const handleImportData = async () => {
+	const handleImportData = async (dataUrl: string) => {
 		if (!dataUrl) {
 			setError("请输入词典URL");
 			return;
@@ -113,8 +112,8 @@ export default function DictionaryConfig(): JSX.Element {
 		}
 	};
 
-	const handleImportLearnedWords = async () => {
-		if (!learnedWordsUrl) {
+	const handleImportLearnedWords = async (url: string) => {
+		if (!url) {
 			setError("请输入已学单词URL");
 			return;
 		}
@@ -124,9 +123,8 @@ export default function DictionaryConfig(): JSX.Element {
 		setImportResult(null);
 
 		try {
-			const result = await importLearnedWords(learnedWordsUrl);
+			const result = await importLearnedWords(url);
 			setImportResult(result);
-			setLearnedWordsUrl("");
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "导入已学单词失败");
 		} finally {
