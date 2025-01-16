@@ -3,5 +3,6 @@ export type Word = {
   count: number,
   name: string,
   trans: string[],
+  ukphone?: string,
   note: any
 }
