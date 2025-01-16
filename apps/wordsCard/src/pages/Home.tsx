@@ -56,46 +56,42 @@ export default function Home() {
     initData();
   }, [currentDictionary, currentDictionary?.url]);
 
-  return (
-    <div className="container min-h-screen mx-auto p-4">
-      {currentDictionary ? (
-        <>
-          <div className="mb-4 p-4 bg-base-200 rounded-lg">
-            <p className="text-sm">当前词典: {currentDictionary.name}</p>
-            <p className="text-xs text-base-content/70">
-              词典URL: {currentDictionary.url}
-            </p>
-          </div>
+  return currentDictionary ? (
+    <>
+      <div className="p-4 bg-base-200 rounded-lg">
+        <p className="text-sm">当前词典: {currentDictionary.name}</p>
+        <p className="text-xs text-base-content/70">
+          词典URL: {currentDictionary.url}
+        </p>
+      </div>
 
-          <WordCard
-            myWords={words}
-            currentIndex={currentIndex}
-            handleNext={handleNext}
-            handlePrev={handlePrev}
-          />
-          <CardProgress
-            currentIndex={currentIndex}
-            total={words.length}
-            onJump={handleJump}
-          />
-        </>
-      ) : (
-        <div className="flex flex-col items-center justify-center h-[calc(100vh-8rem)]">
-          <div className="max-w-md text-center">
-            <h2 className="text-2xl font-bold mb-4">未选择词典</h2>
-            <p className="mb-6 text-base-content/80">
-              请先选择或导入一个词典以开始学习
-            </p>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => navigate("/config")}
-            >
-              去配置
-            </button>
-          </div>
-        </div>
-      )}
+      <WordCard
+        myWords={words}
+        currentIndex={currentIndex}
+        handleNext={handleNext}
+        handlePrev={handlePrev}
+      />
+      <CardProgress
+        currentIndex={currentIndex}
+        total={words.length}
+        onJump={handleJump}
+      />
+    </>
+  ) : (
+    <div className="flex flex-col items-center justify-center h-[calc(100vh-8rem)]">
+      <div className="max-w-md text-center">
+        <h2 className="text-2xl font-bold mb-4">未选择词典</h2>
+        <p className="mb-6 text-base-content/80">
+          请先选择或导入一个词典以开始学习
+        </p>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => navigate("/config")}
+        >
+          去配置
+        </button>
+      </div>
     </div>
   );
 }

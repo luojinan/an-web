@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTheme } from "../hooks";
 
-export default function Navbar() {
+export default function Navbar({ className }: { className?: string }) {
   const [theme, setTheme] = useTheme();
 
   const toggleTheme = () => {
@@ -9,7 +9,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-base-200 p-4">
+    <nav className={`bg-base-200 p-4 ${className}`}>
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-xl font-bold">
           单词卡片
