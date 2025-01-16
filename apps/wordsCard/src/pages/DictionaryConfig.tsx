@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DictionaryConfigForm } from "../components/DictionaryConfigForm";
 import { LearnedWordsConfig } from "../components/LearnedWordsConfig";
-import { type DictionaryResource, dictionaries } from "../const/dicts";
+import type { DictionaryResource } from "../const/dicts";
 import {
 	getDictionaries,
 	getLearnedWords,
@@ -17,18 +17,11 @@ interface DataSource {
 	createdAt: string;
 }
 
-const gitHost =
-	"https://raw.gitmirror.com/RealKai42/qwerty-learner/master/public";
-
 export default function DictionaryConfig(): JSX.Element {
 	const navigate = useNavigate();
 	const [dataSources, setDataSources] = useState<DataSource[]>([]);
-	const [selectedDict, setSelectedDict] = useState<DictionaryResource | null>(
-		null,
-	);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
-	const [learnedWordsUrl, setLearnedWordsUrl] = useState("");
 	const [importResult, setImportResult] = useState<{
 		total: number;
 		added: number;
@@ -68,18 +61,19 @@ export default function DictionaryConfig(): JSX.Element {
 		}
 	}, []);
 
-	const storeDictionary = (url: string) => {
+	const storeDictionary = (dictInfo: DictionaryResource) => {
 		const storedDict = {
-			url,
-			name: selectedDict?.name || "Custom Dictionary",
-			id: selectedDict?.id || "custom",
+			url: dictInfo?.dataUrl,
+			name: dictInfo?.name || "Custom Dictionary",
+			id: dictInfo?.id || "custom",
 		};
 		localStorage.setItem("currentDictionary", JSON.stringify(storedDict));
 		setCurrentDictionary(storedDict);
 		return storedDict;
 	};
 
-	const handleImportData = async (dataUrl: string) => {
+	const handleImportData = async (dictInfo: DictionaryResource) => {
+		const { dataUrl } = dictInfo || {};
 		if (!dataUrl) {
 			setError("请输入词典URL");
 			return;
@@ -94,14 +88,14 @@ export default function DictionaryConfig(): JSX.Element {
 			);
 
 			if (existingSource) {
-				storeDictionary(dataUrl);
+				storeDictionary(dictInfo);
 				console.log("读取本地数据");
 				navigate("/");
 				return;
 			}
 
 			const words = await importWordsFromUrl(dataUrl);
-			storeDictionary(dataUrl);
+			storeDictionary(dictInfo);
 			setDataSources(await getDictionaries());
 			console.log("数据导入成功:", words.words.length);
 			navigate("/");

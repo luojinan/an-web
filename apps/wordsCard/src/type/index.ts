@@ -1,7 +1,7 @@
 export type Word = {
   index: number,
   count: number,
-  word: string,
-  chinese: string, // 修正拼写错误
+  name: string,
+  trans: string[],
   note: any
 }

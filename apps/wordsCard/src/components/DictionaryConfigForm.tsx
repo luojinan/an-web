@@ -9,7 +9,9 @@ interface DictionaryConfigFormProps {
 		dictionaryId?: number;
 	} | null;
 	loading: boolean;
-	onImportData: (dataUrl: string) => Promise<void>;
+	onImportData: (
+		dictInfo: DictionaryResource & { dataUrl?: string },
+	) => Promise<void>;
 }
 
 export function DictionaryConfigForm({
@@ -87,7 +89,7 @@ export function DictionaryConfigForm({
 			<div className="mt-4">
 				<button
 					type="button"
-					onClick={() => onImportData(dataUrl)}
+					onClick={() => onImportData({ ...selectedDict, dataUrl })}
 					className="btn btn-primary w-full"
 					disabled={loading}
 				>

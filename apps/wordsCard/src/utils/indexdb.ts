@@ -51,7 +51,7 @@ export const importWordsFromUrl = async (url: string) => {
     const learnedWordSet = new Set(learnedWords.map(w => w.word));
 
     // Filter out learned words
-    const newWords = words.filter((word: Word) => !learnedWordSet.has(word.word));
+    const newWords = words.filter((word: Word) => !learnedWordSet.has(word.name) && word.name.length > 4);
 
     const dictionaryId = await createDictionary(url.split('/').pop() || 'New Dictionary', url);
 
@@ -89,6 +89,9 @@ export const importLearnedWords = async (url: string) => {
     // Save new words
     await db.table('learnedWords').bulkAdd(newWords.map(word => ({ word })));
 
+    // Filter existing words after updating learned words
+    await filterExistingWords();
+
     return {
       total: words.length,
       added: newWords.length
@@ -101,6 +104,22 @@ export const importLearnedWords = async (url: string) => {
 
 export const getLearnedWords = async () => {
   return await db.table('learnedWords').toArray();
+};
+
+// Filter existing words based on learned words
+const filterExistingWords = async () => {
+  const learnedWords = await db.table('learnedWords').toArray();
+  const learnedWordSet = new Set(learnedWords.map(w => w.word));
+
+  // Get all words from all dictionaries
+  const allWords = await db.table('words').toArray();
+
+  // Filter out learned words
+  const filteredWords = allWords.filter(word => !learnedWordSet.has(word.name) && word.name.length > 4);
+
+  // Update words table with filtered results
+  await db.table('words').clear();
+  await db.table('words').bulkAdd(filteredWords);
 };
 
 // 兼容旧代码
