@@ -549,6 +549,7 @@
   "eight",
   "signal",
   "directly",
+  "directory",
   "ourselves",
   "table",
   "airport",
@@ -709,5 +710,16 @@
   "react",
   "javascript",
   "typescript",
-  "gitHub"
+  "gitHub",
+  "package",
+  "monorepo",
+  "turborepo",
+  "configure",
+  "output",
+  "cannot",
+  "config",
+  "turbo",
+  "script",
+  "custom",
+  "merge"
 ]
